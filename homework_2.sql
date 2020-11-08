@@ -15,11 +15,11 @@ SELECT * FROM movie.links
      LIMIT 10;
 
 -- 3.1) Аггрегация данных - базовые статистики: 
--- Фильмы без оценки отсутствуют.
--- Запрос: количество фильмов с оценкой менее 2
-SELECT COUNT(rating) AS movies_count_less_2
-    FROM movie.ratings
-    WHERE rating < 2
+SELECT DISTINCT COUNT(*)
+    FROM movie.links lnk
+    LEFT JOIN movie.ratings rtg
+        ON rtg.movieid = lnk.movieid
+    WHERE rtg.movieid IS NULL;
 
 -- 3.2) Аггрегация данных - базовые статистики:
 -- Запрос на вывод top-10 пользователей, у который средний рейтинг выше 3.5
